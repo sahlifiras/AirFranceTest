@@ -1,5 +1,6 @@
 package com.airfrance.testfirassahli;
 
+import com.airfrance.testfirassahli.controller.UserController;
 import com.airfrance.testfirassahli.dto.UserDTO;
 import com.airfrance.testfirassahli.entity.User;
 import com.airfrance.testfirassahli.repository.UserRepository;
@@ -12,27 +13,33 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Assert;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.web.servlet.MockMvc;
+
 @SpringBootTest
 class TestfirassahliApplicationTests {
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private UserService userServiceInterface;
 
     @InjectMocks
     private UserServiceImpl userService = new UserServiceImpl(userRepository);
+    @InjectMocks
+    private UserController userController = new UserController();
 
+    private MockMvc mockMvc;
+    private com.fasterxml.jackson.databind.ObjectMapper objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
+    UserDTO u;
     User user = new User();
     UserDTO userDTO = new UserDTO();
 
@@ -47,7 +54,7 @@ class TestfirassahliApplicationTests {
         user.setAddress("courbevoie, paris France");
         user.setActiveUser(false);
 
-        userDTO.setId("60c74e32a938a71945c7e092");
+        userDTO.setId("60c74e32a938a71945c");
         userDTO.setFirstName("firas");
         userDTO.setLastName("sahli");
         userDTO.setBirthDate(format.parse("1995-06-17"));
@@ -62,9 +69,13 @@ class TestfirassahliApplicationTests {
     }
     @Test
     public void createUser() throws ParseException {
-
         when(userRepository.save(any())).thenReturn(ObjectMapper.map(userDTO, User.class));
         Assert.assertNotNull(userService.createUser(userDTO, false));
     }
-
+    @Test
+    public void createUserController() throws Exception {
+        when(userServiceInterface.createUser(any(), any())).thenReturn(userDTO);
+        ResponseEntity<UserDTO> responseEntity = userController.createUser(userDTO, true);
+        Assert.assertEquals(responseEntity.getStatusCodeValue(), 200);
+    }
 }
