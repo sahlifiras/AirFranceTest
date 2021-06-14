@@ -19,4 +19,9 @@ public class UserController {
         UserDTO result = userService.createUser(userDto, status);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public UserDTO getUserById(@PathVariable String id) {
+        return userService.getUserById(id);
+    }
 }

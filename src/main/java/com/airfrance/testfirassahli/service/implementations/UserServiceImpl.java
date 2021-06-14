@@ -22,4 +22,10 @@ public class UserServiceImpl  implements UserService {
         User user = ObjectMapper.map(userDTO, User.class);
         return ObjectMapper.map(userRepository.save(user), UserDTO.class);
     }
+
+    @Override
+    public UserDTO getUserById(String id) {
+        User user = userRepository.findById(id).get();
+        return ObjectMapper.map(user, UserDTO.class);
+    }
 }
