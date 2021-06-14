@@ -3,8 +3,6 @@ package com.airfrance.testfirassahli.dto;
 
 import com.airfrance.testfirassahli.validation.AdultsOnly;
 import com.airfrance.testfirassahli.validation.LiveInFrance;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -72,5 +70,17 @@ public class UserDTO {
 
     public void setActiveUser(Boolean activeUser) {
         this.activeUser = activeUser;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", address='" + address + '\'' +
+                ", activeUser=" + activeUser +
+                '}';
     }
 }
