@@ -8,9 +8,13 @@ import com.airfrance.testfirassahli.repository.UserRepository;
 import com.airfrance.testfirassahli.service.interfaces.UserService;
 import com.airfrance.testfirassahli.util.ObjectMapper;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 
+/**
+ * Implementation of UserService methods
+ *
+ * @author firas.sahli
+ */
 @Service
 public class UserServiceImpl  implements UserService {
 
@@ -21,9 +25,19 @@ public class UserServiceImpl  implements UserService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * create a new user.
+     *
+     * @param userDTO
+     * @param status
+     * @return UserDTO
+     */
     @Override
     public UserDTO createUser(UserDTO userDTO, Boolean status) {
         long start = System.currentTimeMillis();
+        /**
+         * update userDto status
+         */
         userDTO.setActiveUser(status);
         User user = ObjectMapper.map(userDTO, User.class);
         UserDTO result = ObjectMapper.map(userRepository.save(user), UserDTO.class);
@@ -36,6 +50,12 @@ public class UserServiceImpl  implements UserService {
         return result;
     }
 
+    /**
+     * get user details by id
+     *
+     * @param id
+     * @return UserDTO
+     */
     @Override
     public UserDTO getUserById(String id) {
         long start = System.currentTimeMillis();

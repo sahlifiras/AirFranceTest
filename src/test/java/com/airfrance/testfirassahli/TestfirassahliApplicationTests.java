@@ -23,7 +23,11 @@ import java.util.Optional;
 import org.junit.Assert;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
-
+/**
+ * Unit test of our application using Mocks
+ *
+ * @author firas.sahli
+ */
 @SpringBootTest
 class TestfirassahliApplicationTests {
 
@@ -37,14 +41,14 @@ class TestfirassahliApplicationTests {
     @InjectMocks
     private UserController userController = new UserController();
 
-    private MockMvc mockMvc;
-    private com.fasterxml.jackson.databind.ObjectMapper objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
-    UserDTO u;
     User user = new User();
     UserDTO userDTO = new UserDTO();
 
     @Before
     public void setUp() throws ParseException {
+        /**
+         * Initialize Objects
+         */
         MockitoAnnotations.initMocks(this);
         user.setId("60c74e32a938a71945c7e092");
         user.setFirstName("firas");
@@ -62,16 +66,36 @@ class TestfirassahliApplicationTests {
         userDTO.setActiveUser(false);
     }
 
+    /**
+     * Retreive User by its id.
+     * <p>
+     * Check that user exists
+     * </p>
+     */
     @Test
     public void getUserById() throws ParseException {
         when(userRepository.findById(any())).thenReturn(Optional.of(user));
         Assert.assertEquals(userService.getUserById(user.getId()).getId(), user.getId());
     }
+
+    /**
+     * Create a user.
+     * <p>
+     * Check that user is created
+     * </p>
+     */
     @Test
     public void createUser() throws ParseException {
         when(userRepository.save(any())).thenReturn(ObjectMapper.map(userDTO, User.class));
         Assert.assertNotNull(userService.createUser(userDTO, false));
     }
+
+    /**
+     * Create a user inside controller.
+     * <p>
+     * Check that status code of executed method
+     * </p>
+     */
     @Test
     public void createUserController() throws Exception {
         when(userServiceInterface.createUser(any(), any())).thenReturn(userDTO);

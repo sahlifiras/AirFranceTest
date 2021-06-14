@@ -7,6 +7,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * DTO Class of User
+ *
+ * @author firas.sahli
+ */
 public class UserDTO {
     public String id;
     @NotNull(message = "Firstname is required")

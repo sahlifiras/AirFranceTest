@@ -6,6 +6,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
+/**
+ * Entity of User
+ *
+ * @author firas.sahli
+ */
 @Document
 public class User {
     @Id
