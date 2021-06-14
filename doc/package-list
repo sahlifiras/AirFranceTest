@@ -1,0 +1,11 @@
+com.airfrance.testfirassahli
+com.airfrance.testfirassahli.config
+com.airfrance.testfirassahli.controller
+com.airfrance.testfirassahli.dto
+com.airfrance.testfirassahli.entity
+com.airfrance.testfirassahli.exception
+com.airfrance.testfirassahli.repository
+com.airfrance.testfirassahli.service.implementations
+com.airfrance.testfirassahli.service.interfaces
+com.airfrance.testfirassahli.util
+com.airfrance.testfirassahli.validation
