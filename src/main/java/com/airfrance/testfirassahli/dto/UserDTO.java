@@ -1,6 +1,8 @@
 package com.airfrance.testfirassahli.dto;
 
 
+import com.airfrance.testfirassahli.validation.AdultsOnly;
+import com.airfrance.testfirassahli.validation.LiveInFrance;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
@@ -16,9 +18,11 @@ public class UserDTO {
     @NotBlank(message = "Lastname must be mentionned correctly")
     public String lastName;
     @NotNull(message = "Birth date is required")
+    @AdultsOnly(message = "minimum age is 18")
     public Date birthDate;
     @NotNull(message = "Address is required")
     @NotBlank(message = "Address must be mentionned correctly")
+    @LiveInFrance(message = "Address must be in France")
     public String address;
     public Boolean activeUser;
 
